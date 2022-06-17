@@ -1,0 +1,21 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+
+}
+
+body div.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* div.container div.lissajousTable {
+} */
+
+canvas {
+    display: block;
+}
