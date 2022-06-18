@@ -1,85 +1,98 @@
-let cell_size = 115;
-let angle = 0;
+let cell_size = 140;
+let board_width;
+let board_height;
+let angle;
 let columns;
 let rows;
 let lissajous_curve_table;
+let circle_width;
+let circle_height;
+let circle_column_array = [];
+let circle_row_array = [];
+let cb;
+
+function draw_grid_line(x_start, y_start, x_end, y_end) {
+    stroke(218, 165, 32, 200);
+    strokeWeight(1);
+    drawingContext.setLineDash([10, 5]);
+    line(x_start, y_start, x_end, y_end);
+}
 
 function setup() {
     frameRate(60);
-    createCanvas(windowWidth, windowHeight);
 
-    columns = floor(windowWidth / cell_size);
-    rows = floor(windowHeight / cell_size);
+    cb = document.querySelector('#accept');
+    // TODO
+    board_width = floor(windowWidth * 1 / 1);
+    board_height = floor(windowHeight * 1 / 1);
 
-    lissajous_curve_table = new Array2D(rows, columns);
-    for (let row = 1; row < rows; row++) {
-        for (let col = 1; col < columns; col++) {
-            lissajous_curve_table.set(row, col, new LissajousCurve());
-        }
+    createCanvas(board_width, board_height);
+
+    angle = 0;
+    columns = floor(board_width / cell_size);
+    rows = floor(board_height / cell_size);
+
+    // there is 20% of cell space reserved for break between circles
+    circle_width = floor(cell_size - 0.15 * cell_size);
+    circle_radius = floor(circle_width / 2);
+
+    for (let col = 1; col < columns; col++) {
+        let fractial = 1 / 2 + col / (2 * columns);
+        let color = new p5.Vector(floor(400 * fractial), floor(400 * fractial), floor(400 * fractial));
+
+        circle_column_array.push(new SwingingCircle(cell_size, circle_width, circle_radius, col, board_width, board_height, color));
+        circle_column_array[col - 1].create_center_from_col();
     }
 
+    for (let row = 1; row < rows; row++) {
+        let fractial = 1 / 2 + row / (2 * rows);
+        let color = new p5.Vector(floor(400 * fractial), 400, 400);
+
+        circle_row_array.push(new SwingingCircle(cell_size, circle_width, circle_radius, row, board_width, board_height, color));
+        circle_row_array[row - 1].create_center_from_row();
+    }
+
+    lissajous_curve_table = new CurveTable(rows, columns);
+    for (let row = 1; row < rows; row++) {
+        for (let col = 1; col < columns; col++) {
+            lissajous_curve_table.set(row, col, new LissajousCurve(1 / 2 + row / (2 * rows), 1 / 2 + col / (2 * columns)));
+        }
+    }
 }
 
 function draw() {
-    background(0);
+    background(9, 5, 28);
     noFill();
 
-    let circle_width = floor(cell_size - 0.2 * cell_size);
-    let circle_radius = floor(circle_width / 2);
+    if (angle >= TWO_PI) {
+        angle = 0;
+        lissajous_curve_table.clear();
+    }
+    else {
+        angle += 0.02;
+    }
 
-    for (let col = 1; col < columns; col++) {
-        let circle_center_x = (col + 1 / 2) * cell_size;
-        let circle_center_y = floor(circle_width / 2) + 10;
-
-        // drawing the circle
-        stroke(128);
-        strokeWeight(2);
-        drawingContext.setLineDash([0]);
-        ellipse(circle_center_x, circle_center_y, circle_width, circle_width);
-
-        // using polar coordinates to indicate position on the circle
-        let point_x = circle_center_x + circle_radius * cos(angle * 2 * col);
-        let point_y = circle_center_y + circle_radius * sin(angle * 2 * col);
-
-        stroke(255);
-        strokeWeight(6);
-        point(point_x, point_y);
-
-        stroke(218, 165, 32, 128);
-        strokeWeight(1);
-        drawingContext.setLineDash([10, 5]);
-        line(point_x, 0, point_x, windowHeight);
-
-        for (let row = 1; row < rows; row++) {
-            lissajous_curve_table.get(row, col).set_current_x(point_x);
+    for (let circle_col of circle_column_array) {
+        circle_col.update_position(angle);
+        circle_col.draw();
+        let circle_pos = circle_col.get_position();
+        for (let circle_row of circle_row_array) {
+            lissajous_curve_table.get(circle_row.index, circle_col.index).set_current_x(circle_pos.x);
+        }
+        if (cb.checked) {
+            draw_grid_line(circle_col.position.x, 0, circle_col.position.x, board_height);
         }
     }
 
-    for (let row = 1; row < rows; row++) {
-        let circle_center_x = floor(circle_width / 2) + 10;
-        let circle_center_y = (row + 1 / 2) * cell_size;
-
-        // drawing the circle
-        stroke(128);
-        strokeWeight(2);
-        drawingContext.setLineDash([0]);
-        ellipse(circle_center_x, circle_center_y, circle_width, circle_width);
-
-        // using polar coordinates to indicate position on the circle
-        let point_x = circle_center_x + circle_radius * cos(angle * 2 * row);
-        let point_y = circle_center_y + circle_radius * sin(angle * 2 * row);
-
-        stroke(255);
-        strokeWeight(6);
-        point(point_x, point_y);
-
-        stroke(218, 165, 32, 128);
-        strokeWeight(1);
-        drawingContext.setLineDash([10, 5]);
-        line(0, point_y, windowWidth, point_y);
-
-        for (let col = 1; col < columns; col++) {
-            lissajous_curve_table.get(row, col).set_current_y(point_y);
+    for (let circle_row of circle_row_array) {
+        circle_row.update_position(angle);
+        circle_row.draw();
+        let circle_pos = circle_row.get_position();
+        for (let circle_col of circle_column_array) {
+            lissajous_curve_table.get(circle_row.index, circle_col.index).set_current_y(circle_pos.y);
+        }
+        if (cb.checked) {
+            draw_grid_line(0, circle_row.position.y, board_width, circle_row.position.y);
         }
     }
 
@@ -89,14 +102,5 @@ function draw() {
             lissajous_curve_table.get(row, col).show();
         }
     }
-
-    if (angle >= TWO_PI) {
-        angle = 0;
-        lissajous_curve_table.clear();
-    }
-    else {
-        angle += 0.03;
-    }
-
 }
 
