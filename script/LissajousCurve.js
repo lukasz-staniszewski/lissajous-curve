@@ -1,7 +1,9 @@
 class LissajousCurve {
-    constructor() {
+    constructor(fractial_pos_row, fractial_pos_col) {
         this.current_point = createVector();
         this.curve_path = [];
+        this.fractial_pos_row = fractial_pos_row;
+        this.fractial_pos_col = fractial_pos_col;
     }
 
     clear() {
@@ -21,23 +23,26 @@ class LissajousCurve {
     }
 
     show() {
-        strokeWeight(2);
-        // stroke(255);
+        strokeWeight(3);
         noFill();
-        drawingContext.setLineDash([0]);
         colorMode(HSB, 400);
+        drawingContext.setLineDash([0]);
+        drawingContext.shadowBlur = 10;
+        drawingContext.shadowColor = color(floor(400 * this.fractial_pos_row), floor(400 * this.fractial_pos_col), 350);
+        stroke(floor(400 * this.fractial_pos_row), floor(400 * this.fractial_pos_col), 400);
+
         beginShape();
         for (let i = 0; i < this.curve_path.length; i++) {
-            // stroke(floor(400 * (this.curve_path.length / (TWO_PI / 0.03))), floor(400 * (this.curve_path.length / (TWO_PI / 0.03))), floor(400 * (this.curve_path.length / (TWO_PI / 0.03))));
-            stroke(floor(400 * (this.curve_path.length / (TWO_PI / 0.03))), floor(400 * (this.curve_path.length / (TWO_PI / 0.03))), 400);
             let point = this.curve_path[i];
-            curveVertex(point.x, point.y);
+            vertex(point.x, point.y);
         }
         endShape();
+
         colorMode(RGB);
+        drawingContext.shadowBlur = 0;
 
         stroke(218, 165, 32);
-        strokeWeight(5);
+        strokeWeight(8);
         point(this.current_point.x, this.current_point.y);
 
     }

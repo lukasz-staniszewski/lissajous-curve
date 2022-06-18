@@ -1,4 +1,4 @@
-class Array2D {
+class CurveTable {
     constructor(n_rows, n_columns) {
         this.n_rows = n_rows;
         this.n_columns = n_columns;
