@@ -10,18 +10,49 @@
     <script src="script/LissajousCurve.js"></script>
     <script src="script/CurveTable.js"></script>
     <script src="script/SwingingCircle.js"></script>
+    <script src="script/NumberGenerator.js"></script>
 
 </head>
 
 <body>
-    <div class="container">
-        <div class="lissajousTable">
-            <script src="script/lissajous_table.js"></script>
-        </div>
-        <input type="checkbox" id="accept" name="accept" value="yes"> Show grid
-
+    <div class="h1wrap">
+        <h1 class="glow">Tablica krzywych Lissajous</h1>
     </div>
+    <div class="options">
+        <div>
+            <p class="glowGold">
+                Siatka:
+            </p>
+            <div class="inputContainer">
+                <input type="checkbox" id="grid" name="grid" value="show">
+            </div>
+        </div>
+        <div>
+            <p class="glowGold">
+                Zatrzymaj po zakończeniu:
+            </p>
+            <div class="inputContainer">
+                <input type="checkbox" id="freeze" name="freeze" value="yes">
+            </div>
+        </div>
+        <div class="inputContainer">
+            <p class="glowGold">
+                Prędkość zmiany kąta:
+            </p>
+            <div class="range-slider" id="range-slider">
+                <input type="range" id="angle_step" name="angle_step" min="1" max="10" class="slider">
+                <div class="slider-thumb" id="slider-thumb">
+                    <!-- <div class="tooltip"></div> -->
+                </div>
+                <div class="progress" id="progress"></div>
+            </div>
+            <p class="glowGold" id="speed_info">
 
+            </p>
+        </div>
+    </div>
 </body>
+
+<script src="script/lissajous_table.js"></script>
 
 </html>
