@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krzywe Lissajous</title>
+    <link rel="stylesheet" href="style/style_tab.css">
+    <script src="script/p5.js"></script>
+    <script src="script/LissajousCurve.js"></script>
+    <script src="script/CurveTable.js"></script>
+    <script src="script/SwingingCircle.js"></script>
+    <script src="script/NumberGenerator.js"></script>
+
+</head>
+
+<body>
+    <div class="h1wrap">
+        <h1 class="glow">Tablica krzywych Lissajous</h1>
+    </div>
+    <div class="options">
+        <div>
+            <p class="glowGold">
+                Siatka:
+            </p>
+            <div class="inputContainer">
+                <input type="checkbox" id="grid" name="grid" value="show">
+            </div>
+        </div>
+        <div>
+            <p class="glowGold">
+                Zatrzymaj po zakończeniu:
+            </p>
+            <div class="inputContainer">
+                <input type="checkbox" id="freeze" name="freeze" value="yes">
+            </div>
+        </div>
+        <div class="inputContainer">
+            <p class="glowGold">
+                Liczba próbek aproksymujących krzywą:
+            </p>
+            <div class="range-slider" id="range-slider">
+                <input type="range" id="angle_step" name="angle_step" min="1" max="10" class="slider" value="1">
+                <div class="slider-thumb" id="slider-thumb">
+                    <!-- <div class="tooltip"></div> -->
+                </div>
+                <div class="progress" id="progress"></div>
+            </div>
+            <p class="glowInfo" id="speed_info">
+
+            </p>
+        </div>
+    </div>
+</body>
+
+<script src="script/lissajous_table.js"></script>
+
+</html>

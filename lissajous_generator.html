@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krzywe Lissajous</title>
+    <link rel="stylesheet" href="style/style_gen.css">
+    <script src="script/p5.js"></script>
+    <script src="script/LissajousCurve.js"></script>
+    <script src="script/CurveTable.js"></script>
+    <script src="script/SwingingCircle.js"></script>
+    <script src="script/NumberGenerator.js"></script>
+
+</head>
+
+<body>
+    <div class="h1wrap">
+        <h1 class="glow">Generator krzywej Lissajous</h1>
+    </div>
+
+    <div class="optionsX options">
+        <div>
+            <p class="glowGold">
+                Amplituda drgań X:
+            </p>
+
+            <div class="range-slider" id="range-slider">
+                <input type="range" id="ampX" name="ampX" min="1" max="22" class="slider" value="10">
+                <div class="slider-thumb" id="slider_thumb_ampX"></div>
+                <div class="progress" id="progress_ampX"></div>
+            </div>
+
+            <p class="glowInfo" id="ampX_info">
+        </div>
+        <div>
+            <p class="glowGold">
+                Częstość kołowa X:
+            </p>
+
+            <div class="range-slider" id="range-slider">
+                <input type="range" id="freqX" name="freqX" min="1" max="12" class="slider" value="1">
+                <div class="slider-thumb" id="slider_thumb_freqX"></div>
+                <div class="progress" id="progress_freqX"></div>
+            </div>
+
+            <p class="glowInfo" id="freqX_info">
+        </div>
+
+        <div>
+            <p class="glowGold">
+                Delta:
+            </p>
+
+            <div class="range-slider" id="range-slider">
+                <input type="range" id="delta" name="delta" min="0" max="3" class="slider" value="0">
+                <div class="slider-thumb" id="slider_thumb_delta"></div>
+                <div class="progress" id="progress_delta"></div>
+            </div>
+
+            <p class="glowInfo" id="delta_info">
+        </div>
+
+        <div>
+            <p class="glowGold">
+                Tłumienie drgań X:
+            </p>
+
+            <div class="range-slider" id="range-slider">
+                <input type="range" id="dampingX" name="dampingX" min="0" max="6" class="slider" value="6">
+                <div class="slider-thumb" id="slider_thumb_dampX"></div>
+                <div class="progress" id="progress_dampX"></div>
+            </div>
+
+            <p class="glowInfo" id="dampingX_info">
+        </div>
+    </div>
+
+    <div class="optionsY options">
+        <div>
+            <p class="glowGold">
+                Amplituda drgań Y:
+            </p>
+
+            <div class="range-slider" id="range-slider">
+                <input type="range" id="ampY" name="ampY" min="1" max="10" class="slider" value="10">
+                <div class="slider-thumb" id="slider_thumb_ampY"></div>
+                <div class="progress" id="progress_ampY"></div>
+            </div>
+
+            <p class="glowInfo" id="ampY_info">
+        </div>
+        <div>
+            <p class="glowGold">
+                Częstość kołowa Y:
+            </p>
+
+            <div class="range-slider" id="range-slider">
+                <input type="range" id="freqY" name="freqY" min="1" max="12" class="slider" value="1">
+                <div class="slider-thumb" id="slider_thumb_freqY"></div>
+                <div class="progress" id="progress_freqY"></div>
+            </div>
+
+            <p class="glowInfo" id="freqY_info">
+        </div>
+        <div>
+            <p class="glowGold">
+                Tłumienie drgań Y:
+            </p>
+
+            <div class="range-slider" id="range-slider">
+                <input type="range" id="dampingY" name="dampingY" min="0" max="6" class="slider" value="6">
+                <div class="slider-thumb" id="slider_thumb_dampY"></div>
+                <div class="progress" id="progress_dampY"></div>
+            </div>
+
+            <p class="glowInfo" id="dampingY_info">
+        </div>
+    </div>
+
+    <div class="optionsCommon options">
+        <div>
+            <p class="glowGold">
+                Obracanie:
+            </p>
+            <div class="inputContainer">
+                <input type="checkbox" id="rotate" name="rotate" value="show">
+            </div>
+        </div>
+        <div class="inputContainer">
+            <p class="glowGold">
+                Liczba próbek aproksymujących krzywą:
+            </p>
+            <div class="range-slider" id="range-slider">
+                <input type="range" id="angle_step" name="angle_step" min="1" max="20" class="slider" value="1">
+                <div class="slider-thumb" id="slider-thumb">
+                    <!-- <div class="tooltip"></div> -->
+                </div>
+                <div class="progress" id="progress"></div>
+            </div>
+            <p class="glowInfo" id="speed_info">
+
+            </p>
+        </div>
+    </div>
+</body>
+
+<script src="script/lissajous_generator.js"></script>
+
+</html>

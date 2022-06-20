@@ -1,5 +1,5 @@
 class SwingingCircle {
-    constructor(cell_size, circle_width, circle_radius, index, screen_width, screen_height, color, fluct_freq) {
+    constructor(cell_size, circle_width, circle_radius, index, screen_width, screen_height, color, fluct_freq, phase_start = 0) {
         this.cell_size = cell_size;
         this.circle_width = circle_width;
         this.circle_radius = circle_radius;
@@ -8,6 +8,7 @@ class SwingingCircle {
         this.screen_height = screen_height;
         this.color = color;
         this.fluct_freq = fluct_freq;
+        this.phase_start = phase_start;
         this.position = new p5.Vector();
         this.circle_center = new p5.Vector();
     }
@@ -21,8 +22,8 @@ class SwingingCircle {
     }
 
     update_position(angle) {
-        this.position.x = this.circle_center.x + this.circle_radius * cos(angle * this.fluct_freq);
-        this.position.y = this.circle_center.y + this.circle_radius * sin(angle * this.fluct_freq);
+        this.position.x = this.circle_center.x + this.circle_radius * cos(angle * this.fluct_freq + this.phase_start);
+        this.position.y = this.circle_center.y + this.circle_radius * sin(angle * this.fluct_freq + this.phase_start);
     }
 
     get_position() {

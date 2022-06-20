@@ -1,58 +1,147 @@
-<!DOCTYPE html>
-<html lang="pl">
+<!doctype html>
+<html>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krzywe Lissajous</title>
-    <link rel="stylesheet" href="style/style.css">
-    <script src="script/p5.js"></script>
-    <script src="script/LissajousCurve.js"></script>
-    <script src="script/CurveTable.js"></script>
-    <script src="script/SwingingCircle.js"></script>
-    <script src="script/NumberGenerator.js"></script>
+    <link rel="stylesheet" href="style/style_index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css"
+        integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
 
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js"
+        integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O"
+        crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 </head>
 
 <body>
-    <div class="h1wrap">
-        <h1 class="glow">Tablica krzywych Lissajous</h1>
-    </div>
-    <div class="options">
-        <div>
-            <p class="glowGold">
-                Siatka:
-            </p>
-            <div class="inputContainer">
-                <input type="checkbox" id="grid" name="grid" value="show">
-            </div>
+    <div class="container">
+        <div class="h1wrap">
+            <h1 class="glow">Krzywe Lissajous</h1>
         </div>
-        <div>
-            <p class="glowGold">
-                Zatrzymaj po zakończeniu:
-            </p>
-            <div class="inputContainer">
-                <input type="checkbox" id="freeze" name="freeze" value="yes">
-            </div>
-        </div>
-        <div class="inputContainer">
-            <p class="glowGold">
-                Prędkość zmiany kąta:
-            </p>
-            <div class="range-slider" id="range-slider">
-                <input type="range" id="angle_step" name="angle_step" min="1" max="10" class="slider">
-                <div class="slider-thumb" id="slider-thumb">
-                    <!-- <div class="tooltip"></div> -->
-                </div>
-                <div class="progress" id="progress"></div>
-            </div>
-            <p class="glowGold" id="speed_info">
 
+        <div class="paragraph">
+            <h2 class="glow">1. Wprowadzenie</h2>
+            <p>
+                Krzywe Lissajous są krzywymi parametrycznymi przedstawiającymi fizyczne zjawisko składania drgań. Krzywe
+                te zakreślane są jako tor, po którym porusza się punkt materialny, wykonujący <b>drgania
+                    harmoniczne </b> w dwóch wzajemnie prostopadłych kierunkach.
+                Równanie krzywej Lissajous zapisuje się przy użyciu wzorów będących rozwiązaniami równań ruchu dwóch
+                oscylatororów harmonicznych:</p>
+            <p class="math">\(x(t) = Asin(at + \delta )\)</p>
+            <p class="math">\(y(t) = Bsin(bt)\)</p>
+            <p>Krzywe te posiadają ciekawą właściwość - wygląd figury, który zostanie zakreślony
+                przez punkt materialny, bardzo mocno zależy zarówno od stosunku częstości kołowych drgań wzdłuż obu osi
+                (\(a \over b\)) jak i fazy drgań wzdłuż osi poziomej (\( \delta \)), przykładowo:</p>
+            <ul>
+                <li>
+                    <p>dla \({a \over b} = 1\), \(A = B\) i \( \delta = {\pi \over 2} \) otrzymywane jest koło;</p>
+                </li>
+                <li>
+                    <p>dla \({a \over b} = 1\), i \( \delta = 0 \) otrzymywany jest odcinek;</p>
+                </li>
+                <li>
+                    <p>dla \({a \over b} = 1\) otrzymywane są elipsy;</p>
+                </li>
+                <li>
+                    <p>inne \({a \over b}\) produkuje bardziej skomplikowane krzywe i decyduje o
+                        liczbie 'płatów' w figurze, natomiast stosunek \(A \over B \) mówi o relacji szerokości do
+                        wysokości powstałej figury;</p>
+                </li>
+                <li>
+                    <p>w takich przypadkach uwidacznia się również rola \( \delta \) - przedstawia ona pozorny kąt
+                        obrotu
+                        figury, widziany jakby krzywa Lissajous była trójwymiarowa.</p>
+                </li>
+            </ul>
+            <p>W ramach projektu postanowiłem wykonać zarówno symulację ukazującą generowanie krzywej Lissajous przy
+                zadanych parametrach obu oscylatorów harmonicznych, symulację pokazującą wpływ \( \delta \) jako
+                pozornego kąta obrotu, a także wykonałem wizualizację pokazującą generowanie tzw. Tablicy Krzywych
+                Lissajous, zestawiającej krzywe Lissajous dla różnych stosunków częstości kołowych drgań obu wahadeł
+                (\(a \over b\)).</p>
+        </div>
+
+        <div class="paragraph">
+            <h2 class="glow">2. Symulacja - generowanie Krzywych Lissajous</h2>
+            <p>Sposobem na rzeczywiste zaprezentowanie zjawiska składania drgań harmonicznych oraz związanych z tym
+                krzywych Lissajous jest skorzystanie z układu eksperymentalnego składającego się z butelki wypełnionej
+                piaskiem (na dole którego znajduje się otwór, z którego może wysypywać się piasek), która podwieszona
+                jest do sufitu przy pomocy linki, tworząc coś na wzór wahadła matematycznego. Piasek, wysypując się z
+                butelki, która zmienia swoje położenie ze względu na składające się drgania, nakreśla kształt krzywej.
+            </p>
+            <a href="lissajous_generator.html" class="glowGold">
+                <p class="math">PRZEJDŹ DO SYMULACJI</p>
+            </a>
+
+            <p>W ramach pierwszej symulacji możliwe jest odtworzenie tego eksperymentu z możliwym
+                dostosowaniem amplitud i częstości kołowych drgań wzdłuż obu osi. W celu większego
+                urealistycznienia eksperymentu, postanowiłem wzbogacić go o tłumienie, w wyniku czego
+                modyfikacji uległa postać rozwiązania równania ruchu obu oscylatorów:</p>
+            <p class="math">\(x(t) = A e^{-\alpha t} sin( \sqrt{a^2 - \alpha^2}t + \delta )\)</p>
+            <p class="math">\(y(t) = B e^{-\beta t} sin( \sqrt{b^2 - \beta^2} t)\)</p>
+            <p>Wartości parametrów \( \alpha \) i \( \beta \) - stanowiących współczynniki tłumienia obu oscylatorów -
+                są możliwe do wyboru przez użytkownika tak samo jak faza drgań \( \delta \).</p>
+
+            <p>W ramach drugiej z symulacji możliwe jest zauważenie działania parametru \( \delta \) stanowiącego
+                pozorny
+                kąt
+                obrotu figury, widziany jakby krzywa Lissajous była trójwymiarowa. Aby to osiągnąć, konieczne jest
+                przełączenie animacji w tryb 'obracanie' - wtedy co klatkę (frame) rysowana jest krzywa Lissajous (z
+                zadanymi amplitudami i częstościami kołowymi) z małym przesunięciem fazy względem poprzedniej wartości,
+                co tworzy złudzenie obracania figury w 3D. W ramach tej symulacji nie są już możliwe do wyboru takie
+                parametry jak tłumienie \( \alpha \) i tłumienie \( \beta \) - ich użycie uniemożliwiłoby otrzymywanie
+                zamkniętych krzywych,
+                a także \( \delta \) - którego obecność w przypadku tej symulacji nie ma sensu, bo ciągle ulega ona
+                zmianie. Można zauważyć, że
+                złudny kierunek obrotu figury uzależniony jest od stosunku częstości kołowych \({a \over b}\).</p>
+
+        </div>
+
+        <div class="paragraph">
+            <h2 class="glow">3. Wizualizacja - tablica Krzywych Lissajous</h2>
+            <p>W ramach projektu wykonana została wizualizacja pokazująca tzw. 'tablicę krzywych Lissajous'. Tablica ta
+                obrazuje figury nakreślone przez składanie drgań w przypadku różnych stosunków częstości kołowych drgań.
+                W ramach tej wizualizacji założono \(A=B\), zrezygnowano z tłumienia, a także ustalono arbitralnie
+                wartość \( \delta = -{\pi \over 2} \) </p>
+            <a href="lissajous_table.html" class="glowGold">
+                <p class="math">PRZEJDŹ DO WIZUALIZACJI</p>
+            </a>
+            <p>
+                Aby móc pokazać zależność między ruchem na okręgach reprezentujących wahadła a pozycją 'pisaka'
+                nakreślającego krzywą, użyłem przekształcenia z układu walcowego 2D w układ
+                współrzędnych kartezjańskich:
+            </p>
+            <p class="math">\(x( \alpha ) = r cos( \alpha )\)</p>
+            <p class="math">\(y( \alpha ) = r sin( \alpha )\)</p>
+
+            <p>
+                W ramach wizualizacji można nakreślić specjalną siatkę pokazującą ruch rysowania krzywych względem
+                okręgów nakreślających pozycję, a także zobaczyć częstość kołową każdego okręgu.
+                Dodatkowym atutem obu symulacji jest możliwośc doboru parametru próbek aproksymujących krzywą - jest to
+                liczba wierzchołków, które biorą udział w nakreślaniu krzywej Lissajous.
             </p>
         </div>
+
+        <div class="paragraph">
+            <h2 class="glow">4. Przydatne linki</h2>
+            <ul>
+                <li><a href="https://en.wikipedia.org/wiki/Lissajous_curve">Wikipedia angielska - Krzywa Lissajous.</a>
+                </li>
+                <li><a href="http://www.if.pw.edu.pl/~tomgrad/fo2.html">Fizyka Ogólna - materiały do wykładów.</a></li>
+                <li><a href="https://www.youtube.com/watch?v=4CbPksEl51Q&t=582s">Making a physical Lissajous curve.</a>
+                </li>
+                <li><a href="https://www.youtube.com/watch?v=r_S5q8uE74c">Składanie drgań (krzywe Lissajous) -
+                        Politechnika Poznańska.</a></li>
+            </ul>
+        </div>
     </div>
+
 </body>
-
-<script src="script/lissajous_table.js"></script>
 
 </html>

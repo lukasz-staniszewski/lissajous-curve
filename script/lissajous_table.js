@@ -42,8 +42,6 @@ function setup() {
     thumb = document.querySelector('#slider-thumb');
     progress = document.querySelector('#progress');
     speed_info = document.querySelector('#speed_info');
-    range_speed.defaultValue = 1;
-
     customSlider();
     range_speed.addEventListener('input', () => {
         customSlider()
@@ -68,7 +66,7 @@ function setup() {
         let fractial = 1 / 2 + col / (2 * columns);
         let color = new p5.Vector(floor(400 * fractial), floor(400 * fractial), floor(400 * fractial));
 
-        circle_column_array.push(new SwingingCircle(cell_size, circle_width, circle_radius, col, board_width, board_height, color, odd_numbers[col - 1]));
+        circle_column_array.push(new SwingingCircle(cell_size, circle_width, circle_radius, col, board_width, board_height, color, odd_numbers[col - 1], -PI / 2));
         circle_column_array[col - 1].create_center_from_col();
     }
 
@@ -77,7 +75,7 @@ function setup() {
         let fractial = 1 / 2 + row / (2 * rows);
         let color = new p5.Vector(floor(400 * fractial), 400, 400);
 
-        circle_row_array.push(new SwingingCircle(cell_size, circle_width, circle_radius, row, board_width, board_height, color, even_numbers[row - 1]));
+        circle_row_array.push(new SwingingCircle(cell_size, circle_width, circle_radius, row, board_width, board_height, color, even_numbers[row - 1], -PI / 2));
         circle_row_array[row - 1].create_center_from_row();
     }
 
@@ -93,13 +91,13 @@ function draw() {
     background(9, 5, 28);
     noFill();
     speed_step = range_speed.value / 100;
-    speed_info.innerText = `${round(FPS * speed_step, 2)} rad/s`;
+    speed_info.innerText = `${round(TWO_PI / (speed_step), 0)}`;
 
     if (angle >= TWO_PI) {
-        if (cb_freeze.checked) {
-            noLoop();
-        }
-        else {
+        if (cb_freeze.checked === false) {
+
+            // }
+            // else {
             angle = 0;
             lissajous_curve_table.clear();
         }

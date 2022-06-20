@@ -22,6 +22,10 @@ class LissajousCurve {
         this.curve_path.push(this.current_point.copy());
     }
 
+    shift_curve() {
+        this.curve_path.shift();
+    }
+
     show() {
         strokeWeight(3);
         noFill();
@@ -44,6 +48,31 @@ class LissajousCurve {
         stroke(218, 165, 32);
         strokeWeight(8);
         point(this.current_point.x, this.current_point.y);
+    }
+
+    show_single(show_point) {
+        stroke(218, 165, 32, 200);
+        strokeWeight(4);
+
+        colorMode(HSB, 400);
+        drawingContext.shadowBlur = 10;
+        drawingContext.shadowColor = color(floor(400 / 2), floor(400 / 2), 350);
+        stroke(floor(400 / 2), floor(400 / 2), 400);
+
+        beginShape();
+        for (let pt of this.curve_path) {
+            vertex(pt.x, pt.y);
+        }
+        endShape();
+
+        colorMode(RGB);
+        drawingContext.shadowBlur = 0;
+
+        if (show_point) {
+            stroke(218, 165, 32, 200);
+            strokeWeight(12);
+            point(this.current_point.x, this.current_point.y);
+        }
 
     }
 }

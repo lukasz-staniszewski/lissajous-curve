@@ -1,0 +1,81 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: rgb(9, 5, 28);
+    font-family: 'Roboto', sans-serif;
+    width: 100vw;
+    height: 100vh;
+    color: white;
+    font-size: 1.1em;
+}
+
+p {
+    text-align: justify;
+}
+
+p.math {
+    text-align: center;
+    font-weight: bold;
+}
+
+body div.h1wrap {
+    grid-area: title;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+div.h1wrap h1 {
+    font-size: 2.5em;
+    text-align: center;
+}
+
+div.container {
+    padding: 3% 10%;
+}
+
+
+.glow {
+    text-transform: uppercase;
+    color: #fff;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+    from {
+        text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px hwb(204 0% 46%), 0 0 20px #008ae6, 0 0 25px #008ae6, 0 0 30px #008ae6, 0 0 35px #008ae6;
+    }
+
+    to {
+        text-shadow: 0 0 10px #fff, 0 0 15px #4dedff, 0 0 20px #4dedff, 0 0 25px #4dedff, 0 0 30px #4dedff, 0 0 35px #4dedff, 0 0 40px #4dedff;
+    }
+}
+
+.glowGold {
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+    -webkit-animation: glowGold 1s ease-in-out infinite alternate;
+    -moz-animation: glowGold 1s ease-in-out infinite alternate;
+    animation: glowGold 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glowGold {
+    from {
+        text-shadow: 0 0 2.5px #fff, 0 0 5px #fff, 0 0 7.5px #ffd620, 0 0 10px #ffd620, 0 0 12.5px #ffd620, 0 0 15px #ffd620, 0 0 17.5px #ffd620;
+    }
+
+    to {
+        text-shadow: 0 0 5px #fff, 0 0 7.5px #ffdf6d, 0 0 10px #ffdf6d, 0 0 12.5px #ffdf6d, 0 0 15px #ffdf6d, 0 0 17.5px #ffdf6d, 0 0 20px #ffdf6d;
+    }
+}
+
+div ul li a {
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+}
