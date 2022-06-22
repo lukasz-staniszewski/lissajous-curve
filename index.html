@@ -38,7 +38,8 @@
             <p class="math">\(y(t) = Bsin(bt)\)</p>
             <p>Krzywe te posiadają ciekawą właściwość - wygląd figury, który zostanie zakreślony
                 przez punkt materialny, bardzo mocno zależy zarówno od stosunku częstości kołowych drgań wzdłuż obu osi
-                (\(a \over b\)) jak i fazy drgań wzdłuż osi poziomej (\( \delta \)), przykładowo:</p>
+                (\(a \over b\)) jak i różnicy w ich fazie (przesunięciu fazowym wzdłuż osi poziomej) (\( \delta \)),
+                przykładowo:</p>
             <ul>
                 <li>
                     <p>dla \({a \over b} = 1\), \(A = B\) i \( \delta = {\pi \over 2} \) otrzymywane jest koło;</p>
@@ -52,10 +53,11 @@
                 <li>
                     <p>inne \({a \over b}\) produkuje bardziej skomplikowane krzywe i decyduje o
                         liczbie 'płatów' w figurze, natomiast stosunek \(A \over B \) mówi o relacji szerokości do
-                        wysokości powstałej figury; w takich przypadkach uwidacznia się również rola \( \delta \) -
-                        przedstawia ona pozorny kąt
+                        wysokości powstałej figury; w takich przypadkach uwidacznia się również rola przesunięcia
+                        fazowego \( \delta \) -
+                        'przedstawia' on pozorny kąt
                         obrotu
-                        figury, widziany jakby krzywa Lissajous była trójwymiarowa.</p>
+                        figury, widziany jakby tworzona figura Lissajous była trójwymiarowa.</p>
                 </li>
             </ul>
             <p>W ramach projektu postanowiłem wykonać zarówno symulację ukazującą generowanie krzywej Lissajous przy
@@ -84,14 +86,15 @@
             <p class="math">\(x(t) = A e^{-\alpha t} sin( \sqrt{a^2 - \alpha^2}t + \delta )\)</p>
             <p class="math">\(y(t) = B e^{-\beta t} sin( \sqrt{b^2 - \beta^2} t)\)</p>
             <p>Wartości parametrów \( \alpha \) i \( \beta \) - stanowiących współczynniki tłumienia obu oscylatorów -
-                są możliwe do wyboru przez użytkownika tak samo jak faza drgań \( \delta \).</p>
+                są możliwe do wyboru przez użytkownika tak samo jak przesunięcie w fazie drgań \( \delta \).</p>
 
             <p>W ramach drugiej z symulacji możliwe jest zauważenie działania parametru \( \delta \) stanowiącego
                 pozorny
                 kąt
                 obrotu figury, widziany jakby krzywa Lissajous była trójwymiarowa. Aby to osiągnąć, konieczne jest
                 przełączenie animacji w tryb 'obracanie' - wtedy co klatkę (frame) rysowana jest krzywa Lissajous (z
-                zadanymi amplitudami i częstościami kołowymi) z małym przesunięciem fazy względem poprzedniej wartości,
+                zadanymi amplitudami i częstościami kołowymi) z małym przesunięciem fazy względem poprzedniego
+                przesunięcia,
                 co tworzy złudzenie obracania figury w 3D. W ramach tej symulacji nie są już możliwe do wyboru takie
                 parametry jak tłumienie \( \alpha \) i tłumienie \( \beta \) - ich użycie uniemożliwiłoby otrzymywanie
                 zamkniętych krzywych,
@@ -131,7 +134,8 @@
             <ul>
                 <li><a href="https://en.wikipedia.org/wiki/Lissajous_curve">Wikipedia angielska - Krzywa Lissajous.</a>
                 </li>
-                <li><a href="http://www.if.pw.edu.pl/~tomgrad/fo2.html">Fizyka Ogólna - materiały do wykładów.</a></li>
+                <li><a href="http://www.if.pw.edu.pl/~tomgrad/fo2.html">Fizyka Ogólna - materiały do wykładów -
+                        Oscylator Harmoniczny oraz Fale.</a></li>
                 <li><a href="https://www.youtube.com/watch?v=4CbPksEl51Q&t=582s">Making a physical Lissajous curve.</a>
                 </li>
                 <li><a href="https://www.youtube.com/watch?v=r_S5q8uE74c">Składanie drgań (krzywe Lissajous) -
