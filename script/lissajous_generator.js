@@ -1,6 +1,6 @@
 let cell_size = 120;
 let FPS = 60;
-let pixels_per_amp = 20;
+let pixels_per_amp = 17;
 let board_width;
 let board_height;
 
@@ -123,8 +123,8 @@ function customSliderDelta() {
 
 function setup() {
     frameRate(FPS);
-    board_width = floor(windowWidth * 75 / 100);
-    board_height = floor(windowHeight * 65 / 100);
+    board_width = floor(windowWidth * 78 / 100);
+    board_height = floor(windowHeight * 57.6 / 100);
     createCanvas(board_width, board_height);
     curve = new LissajousCurve();
 

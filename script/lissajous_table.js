@@ -1,4 +1,4 @@
-let cell_size = 120;
+let cell_size = 110;
 let board_width;
 let board_height;
 let angle;
@@ -48,7 +48,7 @@ function setup() {
     });
 
     board_width = floor(windowWidth * 75 / 100);
-    board_height = floor(windowHeight * 85 / 100);
+    board_height = floor(windowHeight * 76 / 100);
 
     createCanvas(board_width, board_height);
 

@@ -57,9 +57,9 @@ body div.options input {
 body {
     display: grid;
 
-    grid-template-columns: 75% 25%;
-    grid-template-rows: 15% 20% 65%;
-    grid-template-areas: "title title""optionX optionCommon""canvas optionY";
+    grid-template-columns: 78% 22%;
+    grid-template-rows: 15% 16% 64% 5%;
+    grid-template-areas: "title title""optionX optionCommon""canvas optionY""footer footer";
 
 }
 
@@ -204,7 +204,7 @@ input:checked[type="checkbox"]:after {
 
 .range-slider .slider {
     -webkit-appearance: none;
-    width: 100%;
+    width: 11em;
     height: 0.8em;
     outline: none;
     border-radius: 10px;
@@ -221,12 +221,14 @@ input:checked[type="checkbox"]:after {
     cursor: pointer;
     z-index: 3;
     position: relative;
+    padding-inline: 10%;
 }
 
 .range-slider .slider-thumb {
     position: absolute;
     width: 1.7em;
     height: 1.7em;
+    cursor: pointer;
     background: #090909;
     border: 1px solid #ffc663;
     border-radius: 50%;
@@ -264,4 +266,13 @@ input:checked[type="checkbox"]:after {
     transform: translateY(-50%);
     left: 0;
     pointer-events: none;
+}
+
+div.footer {
+    font-size: 10px;
+    /* color: white; */
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

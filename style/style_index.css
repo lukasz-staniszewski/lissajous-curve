@@ -22,7 +22,7 @@ p.math {
 body div.h1wrap {
     grid-area: title;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
 }
@@ -30,6 +30,11 @@ body div.h1wrap {
 div.h1wrap h1 {
     font-size: 2.5em;
     text-align: center;
+}
+
+div.h1wrap h2 {
+    font-style: oblique;
+    color: #fff;
 }
 
 div.container {

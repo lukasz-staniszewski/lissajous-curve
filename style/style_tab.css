@@ -40,8 +40,8 @@ body {
     display: grid;
 
     grid-template-columns: 75% 25%;
-    grid-template-rows: 15% 85%;
-    grid-template-areas: "title title""canvas option";
+    grid-template-rows: 15% 90% 5%;
+    grid-template-areas: "title title""canvas option""footer footer";
 
 }
 
@@ -250,4 +250,13 @@ input:checked[type="checkbox"]:after {
     transform: translateY(-50%);
     left: 0;
     pointer-events: none;
+}
+
+div.footer {
+    font-size: 10px;
+    /* color: white; */
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
