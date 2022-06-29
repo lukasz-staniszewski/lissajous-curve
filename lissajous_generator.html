@@ -11,6 +11,7 @@
     <script src="script/CurveTable.js"></script>
     <script src="script/SwingingCircle.js"></script>
     <script src="script/NumberGenerator.js"></script>
+    <script src="script/Slider.js"></script>
 
 </head>
 
@@ -20,102 +21,133 @@
     </div>
 
     <div class="optionsX options">
-        <div>
+        <div class="inpContainer">
             <p class="glowGold">
                 Amplituda drgań X:
             </p>
 
-            <div class="range-slider" id="range-slider">
-                <input type="range" id="ampX" name="ampX" min="1" max="22" class="slider" value="10">
-                <div class="slider-thumb" id="slider_thumb_ampX"></div>
-                <div class="progress" id="progress_ampX"></div>
-            </div>
-
-            <p class="glowInfo" id="ampX_info">
+            <form class="range">
+                <div class="form-group range__slider">
+                    <input type="range" step="1" id="range_amp_X">
+                </div>
+                <!--/form-group-->
+                <div class="form-group range__value">
+                    <p id="value_amp_X"></p>
+                </div>
+                <!--/form-group-->
+            </form>
         </div>
-        <div>
+        <!--/container-->
+
+        <div class="inpContainer">
             <p class="glowGold">
                 Częstość kołowa X:
             </p>
 
-            <div class="range-slider" id="range-slider">
-                <input type="range" id="freqX" name="freqX" min="1" max="12" class="slider" value="1">
-                <div class="slider-thumb" id="slider_thumb_freqX"></div>
-                <div class="progress" id="progress_freqX"></div>
-            </div>
-
-            <p class="glowInfo" id="freqX_info">
+            <form class="range">
+                <div class="form-group range__slider">
+                    <input type="range" step="1" id="range_freq_X">
+                </div>
+                <!--/form-group-->
+                <div class="form-group range__value">
+                    <p id="value_freq_X"></p>
+                </div>
+                <!--/form-group-->
+            </form>
         </div>
+        <!--/container-->
 
-        <div>
-            <p class="glowGold">
-                Delta:
-            </p>
-
-            <div class="range-slider" id="range-slider">
-                <input type="range" id="delta" name="delta" min="0" max="3" class="slider" value="0">
-                <div class="slider-thumb" id="slider_thumb_delta"></div>
-                <div class="progress" id="progress_delta"></div>
-            </div>
-
-            <p class="glowInfo" id="delta_info">
-        </div>
-
-        <div>
+        <div class="inpContainer">
             <p class="glowGold">
                 Tłumienie drgań X:
             </p>
 
-            <div class="range-slider" id="range-slider">
-                <input type="range" id="dampingX" name="dampingX" min="0" max="6" class="slider" value="6">
-                <div class="slider-thumb" id="slider_thumb_dampX"></div>
-                <div class="progress" id="progress_dampX"></div>
-            </div>
-
-            <p class="glowInfo" id="dampingX_info">
+            <form class="range">
+                <div class="form-group range__slider">
+                    <input type="range" step="1" id="range_damp_X">
+                </div>
+                <!--/form-group-->
+                <div class="form-group range__value">
+                    <p id="value_damp_X"></p>
+                </div>
+                <!--/form-group-->
+            </form>
         </div>
+        <!--/container-->
+
+        <div class="inpContainer">
+            <p class="glowGold">
+                Delta:
+            </p>
+
+            <form class="range">
+                <div class="form-group range__slider">
+                    <input type="range" step="1" id="range_delta">
+                </div>
+                <!--/form-group-->
+                <div class="form-group range__value">
+                    <p id="value_delta"></p>
+                </div>
+                <!--/form-group-->
+            </form>
+        </div>
+        <!--/container-->
     </div>
 
     <div class="optionsY options">
-        <div>
+        <div class="inpContainer">
             <p class="glowGold">
                 Amplituda drgań Y:
             </p>
 
-            <div class="range-slider" id="range-slider">
-                <input type="range" id="ampY" name="ampY" min="1" max="10" class="slider" value="10">
-                <div class="slider-thumb" id="slider_thumb_ampY"></div>
-                <div class="progress" id="progress_ampY"></div>
-            </div>
-
-            <p class="glowInfo" id="ampY_info">
+            <form class="range">
+                <div class="form-group range__slider">
+                    <input type="range" step="1" id="range_amp_Y">
+                </div>
+                <!--/form-group-->
+                <div class="form-group range__value">
+                    <p id="value_amp_Y"></p>
+                </div>
+                <!--/form-group-->
+            </form>
         </div>
-        <div>
+        <!--/container-->
+
+        <div class="inpContainer">
             <p class="glowGold">
                 Częstość kołowa Y:
             </p>
 
-            <div class="range-slider" id="range-slider">
-                <input type="range" id="freqY" name="freqY" min="1" max="12" class="slider" value="1">
-                <div class="slider-thumb" id="slider_thumb_freqY"></div>
-                <div class="progress" id="progress_freqY"></div>
-            </div>
-
-            <p class="glowInfo" id="freqY_info">
+            <form class="range">
+                <div class="form-group range__slider">
+                    <input type="range" step="1" id="range_freq_Y">
+                </div>
+                <!--/form-group-->
+                <div class="form-group range__value">
+                    <p id="value_freq_Y"></p>
+                </div>
+                <!--/form-group-->
+            </form>
         </div>
-        <div>
+        <!--/container-->
+
+        <div class="inpContainer">
             <p class="glowGold">
                 Tłumienie drgań Y:
             </p>
 
-            <div class="range-slider" id="range-slider">
-                <input type="range" id="dampingY" name="dampingY" min="0" max="6" class="slider" value="6">
-                <div class="slider-thumb" id="slider_thumb_dampY"></div>
-                <div class="progress" id="progress_dampY"></div>
-            </div>
-
-            <p class="glowInfo" id="dampingY_info">
+            <form class="range">
+                <div class="form-group range__slider">
+                    <input type="range" step="1" id="range_damp_Y">
+                </div>
+                <!--/form-group-->
+                <div class="form-group range__value">
+                    <p id="value_damp_Y"></p>
+                </div>
+                <!--/form-group-->
+            </form>
         </div>
+        <!--/container-->
     </div>
 
     <div class="optionsCommon options">
@@ -127,20 +159,22 @@
                 <input type="checkbox" id="rotate" name="rotate" value="show">
             </div>
         </div>
-        <div class="inputContainer">
+
+        <div class="inpContainer">
             <p class="glowGold">
                 Liczba próbek aproksymujących krzywą:
             </p>
-            <div class="range-slider" id="range-slider">
-                <input type="range" id="angle_step" name="angle_step" min="1" max="20" class="slider" value="1">
-                <div class="slider-thumb" id="slider-thumb">
-                    <!-- <div class="tooltip"></div> -->
-                </div>
-                <div class="progress" id="progress"></div>
-            </div>
-            <p class="glowInfo" id="speed_info">
 
-            </p>
+            <form class="range">
+                <div class="form-group range__slider">
+                    <input type="range" step="1" id="range_step">
+                </div>
+                <!--/form-group-->
+                <div class="form-group range__value">
+                    <p id="value_step"></p>
+                </div>
+                <!--/form-group-->
+            </form>
         </div>
     </div>
 

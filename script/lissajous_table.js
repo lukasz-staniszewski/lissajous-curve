@@ -1,23 +1,24 @@
 let cell_size = 110;
+let FPS = 60;
 let board_width;
 let board_height;
-let angle;
+
 let columns;
 let rows;
-let lissajous_curve_table;
 let circle_width;
 let circle_height;
+
+let angle;
+let speed_step;
+
+let lissajous_curve_table;
 let circle_column_array = [];
 let circle_row_array = [];
+
+let slider;
 let cb_grid;
 let cb_freeze;
-let range_speed;
-let speed_step;
-let slider;
-let thumb;
-let progress;
-let speed_info;
-let FPS = 60;
+
 
 function draw_grid_line(x_start, y_start, x_end, y_end) {
     stroke(218, 165, 32, 200);
@@ -38,14 +39,11 @@ function setup() {
 
     cb_grid = document.querySelector('#grid');
     cb_freeze = document.querySelector('#freeze');
-    range_speed = document.querySelector('#angle_step');
-    thumb = document.querySelector('#slider-thumb');
-    progress = document.querySelector('#progress');
-    speed_info = document.querySelector('#speed_info');
-    customSlider();
-    range_speed.addEventListener('input', () => {
-        customSlider()
-    });
+
+    let range_step = document.querySelector('#range_step');
+    let value_step = document.querySelector('#value_step');
+    slider = new Slider(range_step, value_step, { min: 1, max: 9, cur: 8 });
+    slider.init();
 
     board_width = floor(windowWidth * 75 / 100);
     board_height = floor(windowHeight * 76 / 100);
@@ -90,8 +88,8 @@ function setup() {
 function draw() {
     background(9, 5, 28);
     noFill();
-    speed_step = range_speed.value / 100;
-    speed_info.innerText = `${round(TWO_PI / (speed_step), 0)}`;
+    speed_step = (10 - slider.rangeElement.value) / 100;
+    slider.valueElement.innerHTML = `${round(TWO_PI / speed_step, 0)}`;
 
     if (angle >= TWO_PI) {
         if (cb_freeze.checked === false) {

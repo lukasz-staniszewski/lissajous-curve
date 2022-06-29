@@ -11,6 +11,7 @@
     <script src="script/CurveTable.js"></script>
     <script src="script/SwingingCircle.js"></script>
     <script src="script/NumberGenerator.js"></script>
+    <script src="script/Slider.js"></script>
 
 </head>
 
@@ -35,20 +36,22 @@
                 <input type="checkbox" id="freeze" name="freeze" value="yes">
             </div>
         </div>
-        <div class="inputContainer">
+
+        <div class="inpContainer">
             <p class="glowGold">
                 Liczba próbek aproksymujących krzywą:
             </p>
-            <div class="range-slider" id="range-slider">
-                <input type="range" id="angle_step" name="angle_step" min="1" max="10" class="slider" value="1">
-                <div class="slider-thumb" id="slider-thumb">
-                    <!-- <div class="tooltip"></div> -->
-                </div>
-                <div class="progress" id="progress"></div>
-            </div>
-            <p class="glowInfo" id="speed_info">
 
-            </p>
+            <form class="range">
+                <div class="form-group range__slider">
+                    <input type="range" step="1" id="range_step">
+                </div>
+                <!--/form-group-->
+                <div class="form-group range__value">
+                    <p id="value_step"></p>
+                </div>
+                <!--/form-group-->
+            </form>
         </div>
     </div>
 

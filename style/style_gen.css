@@ -4,7 +4,7 @@ body {
     padding: 0;
     background: rgb(9, 5, 28);
     font-family: 'Roboto', sans-serif;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 body div.h1wrap {
@@ -71,13 +71,10 @@ main {
     align-items: center;
 }
 
-/* main canvas {
-    margin: auto auto;
-} */
-
 .glow {
     color: #fff;
     text-align: center;
+    text-transform: uppercase;
     -webkit-animation: glow 1s ease-in-out infinite alternate;
     -moz-animation: glow 1s ease-in-out infinite alternate;
     animation: glow 1s ease-in-out infinite alternate;
@@ -195,79 +192,6 @@ input:checked[type="checkbox"]:after {
     box-shadow: 0 0 5px #ffc663, 0 0 15px #ffc663;
 }
 
-.range-slider {
-    max-width: 30em;
-    margin: 0 2em auto;
-    position: relative;
-    display: flex;
-}
-
-.range-slider .slider {
-    -webkit-appearance: none;
-    width: 11em;
-    height: 0.8em;
-    outline: none;
-    border-radius: 10px;
-    border: 1px solid #ffc663;
-    background: #1f1f1f;
-    box-shadow:
-        3px 3px 6px #000 inset 1px 1px 1px #909090;
-}
-
-.range-slider .slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 1.7em;
-    height: 1.7em;
-    cursor: pointer;
-    z-index: 3;
-    position: relative;
-    padding-inline: 10%;
-}
-
-.range-slider .slider-thumb {
-    position: absolute;
-    width: 1.7em;
-    height: 1.7em;
-    cursor: pointer;
-    background: #090909;
-    border: 1px solid #ffc663;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    box-shadow: inset 0px 1px 2px #909090;
-}
-
-.range-slider .slider-thumb::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 0.7em;
-    height: 0.7em;
-    background: #333;
-    border-radius: inherit;
-    transition: 0.3s;
-}
-
-.range-slider:hover .slider-thumb::before {
-    background: #ffd620;
-}
-
-.range-slider .progress {
-    width: 50%;
-    height: 0.8em;
-    border-radius: 10px;
-    background: linear-gradient(90deg, #ffd620, 0%, #ffc663 100%);
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    pointer-events: none;
-}
-
 div.footer {
     font-size: 10px;
     /* color: white; */
@@ -275,4 +199,90 @@ div.footer {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+div.inpContainer {
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+div.inpContainer p {
+    text-align: center;
+}
+
+
+.range {
+    max-width: 30em;
+    margin: 0 2em auto;
+
+}
+
+.range__value {
+    /* width: 35%; */
+    text-align: center;
+}
+
+
+.form-group>p {
+    text-align: center;
+    /* text-transform: uppercase; */
+    color: #ffc663;
+    font-weight: bold;
+}
+
+.range__slider [type="range"] {
+    -webkit-appearance: none;
+    border-radius: 10px;
+    height: 0.8em;
+    background: #333;
+    border: 1px solid #ffc663;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* custom thumb */
+.range__slider [type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background: #333;
+    border: #000 8px solid;
+    outline: 1px solid #ffc663;
+    cursor: pointer;
+    -webkit-transition: background .15s ease-in-out;
+    transition: background .15s ease-in-out;
+}
+
+.range__slider [type="range"]::-webkit-slider-thumb:hover {
+    background: #ffd620;
+}
+
+.range__slider [type="range"]::-moz-range-thumb {
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    background: #333;
+    border: #000 8px solid;
+    outline: 1px solid #ffc663;
+    cursor: poin ter;
+    -webkit-transition: background .15s ease-in-out;
+    transition: background .15s ease-in-out;
+}
+
+.range__slider [type="range"]::-moz-range-thumb:hover {
+    background: #f0932b;
+}
+
+input::-moz-focus-inner,
+input::-moz-focus-outer {
+    border: 0;
 }

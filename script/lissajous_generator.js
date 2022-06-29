@@ -4,42 +4,6 @@ let pixels_per_amp = 17;
 let board_width;
 let board_height;
 
-let slider_amp_X;
-let thumb_amp_X;
-let progress_amp_X;
-let info_amp_X;
-let slider_amp_Y;
-let thumb_amp_Y;
-let progress_amp_Y;
-let info_amp_Y;
-let slider_freq_X;
-let thumb_freq_X;
-let progress_freq_X;
-let info_freq_X;
-let slider_freq_Y;
-let thumb_freq_Y;
-let progress_freq_Y;
-let info_freq_Y;
-let slider_damp_X;
-let thumb_damp_X;
-let progress_damp_X;
-let info_damp_X;
-let slider_damp_Y;
-let thumb_damp_Y;
-let progress_damp_Y;
-let info_damp_Y;
-let slider_delta;
-let thumb_delta;
-let progress_delta;
-let info_delta;
-
-let cb_rotate;
-
-let slider_step;
-let thumb_step;
-let progress_step;
-let info_step;
-
 let frame_idx = 0;
 let period_occured = false;
 
@@ -55,233 +19,151 @@ let damping_X;
 let damping_Y;
 let delta;
 let points = [];
-let curve;
+let liss_curve;
+
+let slider_amp_X;
+let slider_amp_Y;
+let slider_freq_X;
+let slider_freq_Y;
+let slider_damp_X;
+let slider_damp_Y;
+let slider_delta;
+let slider_step;
+let cb_rotate;
+
 
 function clear_points() {
-    curve.clear();
+    liss_curve.clear();
     period_occured = false;
     angle = 0;
     frame_idx = 0;
 }
 
-function customSliderAmpX() {
-    let max = slider_amp_X.max;
-    let val = (slider_amp_X.value / max) * 100 + "%";
-    progress_amp_X.style.width = val;
-    thumb_amp_X.style.left = val;
-}
-
-function customSliderAmpY() {
-    let max = slider_amp_Y.max;
-    let val = (slider_amp_Y.value / max) * 100 + "%";
-    progress_amp_Y.style.width = val;
-    thumb_amp_Y.style.left = val;
-}
-
-function customSliderFreqX() {
-    let max = slider_freq_X.max;
-    let val = (slider_freq_X.value / max) * 100 + "%";
-    progress_freq_X.style.width = val;
-    thumb_freq_X.style.left = val;
-}
-
-function customSliderFreqY() {
-    let max = slider_freq_Y.max;
-    let val = (slider_freq_Y.value / max) * 100 + "%";
-    progress_freq_Y.style.width = val;
-    thumb_freq_Y.style.left = val;
-}
-
-
-function customSliderDampX() {
-    let max = slider_damp_X.max;
-    let val = (slider_damp_X.value / max) * 100 + "%";
-    progress_damp_X.style.width = val;
-    thumb_damp_X.style.left = val;
-}
-
-function customSliderDampY() {
-    let max = slider_damp_Y.max;
-    let val = (slider_damp_Y.value / max) * 100 + "%";
-    progress_damp_Y.style.width = val;
-    thumb_damp_Y.style.left = val;
-}
-
-function customSliderStep() {
-    let max = slider_step.max;
-    let val = (slider_step.value / max) * 100 + "%";
-    progress_step.style.width = val;
-    thumb_step.style.left = val;
-}
-
-function customSliderDelta() {
-    let max = slider_delta.max;
-    let val = (slider_delta.value / max) * 100 + "%";
-    progress_delta.style.width = val;
-    thumb_delta.style.left = val;
-}
 
 function setup() {
     frameRate(FPS);
     board_width = floor(windowWidth * 78 / 100);
     board_height = floor(windowHeight * 57.6 / 100);
     createCanvas(board_width, board_height);
-    curve = new LissajousCurve();
+    liss_curve = new LissajousCurve();
 
     cb_rotate = document.querySelector('#rotate');
 
-    slider_amp_X = document.querySelector('#ampX');
-    thumb_amp_X = document.querySelector('#slider_thumb_ampX');
-    progress_amp_X = document.querySelector('#progress_ampX');
-    info_amp_X = document.querySelector('#ampX_info');
+    let range_amp_X = document.querySelector('#range_amp_X');
+    let value_amp_X = document.querySelector('#value_amp_X');
+    slider_amp_X = new Slider(range_amp_X, value_amp_X, { min: 1, max: 20, cur: 10 });
+    slider_amp_X.init();
 
-    slider_amp_Y = document.querySelector('#ampY');
-    thumb_amp_Y = document.querySelector('#slider_thumb_ampY');
-    progress_amp_Y = document.querySelector('#progress_ampY');
-    info_amp_Y = document.querySelector('#ampY_info');
+    let range_freq_X = document.querySelector('#range_freq_X');
+    let value_freq_X = document.querySelector('#value_freq_X');
+    slider_freq_X = new Slider(range_freq_X, value_freq_X, { min: 1, max: 12, cur: 1 });
+    slider_freq_X.init();
 
-    slider_freq_X = document.querySelector('#freqX');
-    thumb_freq_X = document.querySelector('#slider_thumb_freqX');
-    progress_freq_X = document.querySelector('#progress_freqX');
-    info_freq_X = document.querySelector('#freqX_info');
+    let range_damp_X = document.querySelector('#range_damp_X');
+    let value_damp_X = document.querySelector('#value_damp_X');
+    slider_damp_X = new Slider(range_damp_X, value_damp_X, { min: 0, max: 6, cur: 0 });
+    slider_damp_X.init();
 
-    slider_freq_Y = document.querySelector('#freqY');
-    thumb_freq_Y = document.querySelector('#slider_thumb_freqY');
-    progress_freq_Y = document.querySelector('#progress_freqY');
-    info_freq_Y = document.querySelector('#freqY_info');
+    let range_amp_Y = document.querySelector('#range_amp_Y');
+    let value_amp_Y = document.querySelector('#value_amp_Y');
+    slider_amp_Y = new Slider(range_amp_Y, value_amp_Y, { min: 1, max: 10, cur: 10 });
+    slider_amp_Y.init();
 
-    slider_damp_X = document.querySelector('#dampingX');
-    thumb_damp_X = document.querySelector('#slider_thumb_dampX');
-    progress_damp_X = document.querySelector('#progress_dampX');
-    info_damp_X = document.querySelector('#dampingX_info');
+    let range_freq_Y = document.querySelector('#range_freq_Y');
+    let value_freq_Y = document.querySelector('#value_freq_Y');
+    slider_freq_Y = new Slider(range_freq_Y, value_freq_Y, { min: 1, max: 12, cur: 1 });
+    slider_freq_Y.init();
 
-    slider_damp_Y = document.querySelector('#dampingY');
-    thumb_damp_Y = document.querySelector('#slider_thumb_dampY');
-    progress_damp_Y = document.querySelector('#progress_dampY');
-    info_damp_Y = document.querySelector('#dampingY_info');
+    let range_damp_Y = document.querySelector('#range_damp_Y');
+    let value_damp_Y = document.querySelector('#value_damp_Y');
+    slider_damp_Y = new Slider(range_damp_Y, value_damp_Y, { min: 0, max: 6, cur: 0 });
+    slider_damp_Y.init();
 
-    slider_step = document.querySelector('#angle_step');
-    thumb_step = document.querySelector('#slider-thumb');
-    progress_step = document.querySelector('#progress');
-    info_step = document.querySelector('#speed_info');
+    let range_delta = document.querySelector('#range_delta');
+    let value_delta = document.querySelector('#value_delta');
+    slider_delta = new Slider(range_delta, value_delta, { min: 0, max: 4, cur: 0 });
+    slider_delta.init();
 
-    slider_delta = document.querySelector('#delta');
-    thumb_delta = document.querySelector('#slider_thumb_delta');
-    progress_delta = document.querySelector('#progress_delta');
-    info_delta = document.querySelector('#delta_info');
+    let range_step = document.querySelector('#range_step');
+    let value_step = document.querySelector('#value_step');
+    slider_step = new Slider(range_step, value_step, { min: 1, max: 9, cur: 8 });
+    slider_step.init();
 
-    customSliderAmpX();
-    slider_amp_X.addEventListener('input', () => {
-        customSliderAmpX()
-    });
-
-    customSliderAmpY();
-    slider_amp_Y.addEventListener('input', () => {
-        customSliderAmpY()
-    });
-
-    customSliderFreqX();
-    slider_freq_X.addEventListener('input', () => {
-        customSliderFreqX()
-    });
-
-    customSliderFreqY();
-    slider_freq_Y.addEventListener('input', () => {
-        customSliderFreqY()
-    }
-    );
-
-    customSliderDampX();
-    slider_damp_X.addEventListener('input', () => {
-        customSliderDampX()
-    }
-    );
-
-    customSliderDampY();
-    slider_damp_Y.addEventListener('input', () => {
-        customSliderDampY()
-    }
-    );
-
-    customSliderStep();
-    slider_step.addEventListener('input', () => {
-        customSliderStep()
-    });
-
-    customSliderDelta();
-    slider_delta.addEventListener('input', () => {
-        customSliderDelta()
-    }
-    );
-
-    slider_amp_X.onchange = () => {
+    slider_amp_X.rangeElement.onchange = () => {
         clear_points();
     };
 
-    slider_amp_Y.onchange = () => {
+    slider_amp_Y.rangeElement.onchange = () => {
         clear_points();
     };
 
-    slider_freq_X.onchange = () => {
+    slider_freq_X.rangeElement.onchange = () => {
         clear_points();
     };
 
-    slider_freq_Y.onchange = () => {
+    slider_freq_Y.rangeElement.onchange = () => {
         clear_points();
     };
 
-    slider_damp_X.onchange = () => {
+    slider_damp_X.rangeElement.onchange = () => {
         clear_points();
     };
-    slider_damp_Y.onchange = () => {
+
+    slider_damp_Y.rangeElement.onchange = () => {
         clear_points();
     };
+
+    slider_delta.rangeElement.onchange = () => {
+        clear_points();
+    };
+
+    slider_step.rangeElement.onchange = () => {
+        clear_points();
+    };
+
     cb_rotate.onchange = () => {
-        clear_points();
-    };
-    slider_step.onchange = () => {
-        clear_points();
-    };
-    slider_delta.onchange = () => {
         clear_points();
     };
 }
 
 function update_params() {
-    amp_X = slider_amp_X.value;
-    amp_Y = slider_amp_Y.value;
-    freq_X = slider_freq_X.value;
-    freq_Y = slider_freq_Y.value;
-    delta = slider_delta.value;
+    amp_X = slider_amp_X.rangeElement.value;
+    amp_Y = slider_amp_Y.rangeElement.value;
+    freq_X = slider_freq_X.rangeElement.value;
+    freq_Y = slider_freq_Y.rangeElement.value;
+    delta = slider_delta.rangeElement.value;
+    speed_step = (10 - slider_step.rangeElement.value) / 100;
+
 
     if (delta == 0) {
-        info_delta.innerText = `${delta}`;
+        slider_delta.valueElement.innerHTML = `${delta}`;
+    }
+    else if (delta % 2 == 0) {
+        slider_delta.valueElement.innerHTML = `${delta / 2} π`;
     }
     else {
-        info_delta.innerText = `${delta}/2 π`;
-        delta = delta * (PI / 2);
-
+        slider_delta.valueElement.innerHTML = `${delta}/2 π`;
     }
+    delta = delta * (PI / 2);
 
-    if (slider_damp_X.value < 6) {
-        damping_X = 1 / (pow(10, slider_damp_X.value));
+
+    if (slider_damp_X.rangeElement.value > 0) {
+        damping_X = 1 / (pow(10, 7 - slider_damp_X.rangeElement.value));
     }
     else {
         damping_X = 0;
     }
-    if (slider_damp_Y.value < 6) {
-        damping_Y = 1 / (pow(10, slider_damp_Y.value));
+    slider_damp_X.valueElement.innerHTML = `${damping_X}`;
+
+    if (slider_damp_Y.rangeElement.value > 0) {
+        damping_Y = 1 / (pow(10, 7 - slider_damp_Y.rangeElement.value));
     }
     else {
         damping_Y = 0;
     }
+    slider_damp_Y.valueElement.innerHTML = `${damping_Y}`;
 
-    info_amp_X.innerText = `${round(slider_amp_X.value)}`;
-    info_amp_Y.innerText = `${round(slider_amp_Y.value)}`;
-    info_freq_X.innerText = `${round(slider_freq_X.value)}`;
-    info_freq_Y.innerText = `${round(slider_freq_Y.value)}`;
-    info_damp_X.innerText = `${damping_X}`;
-    info_damp_Y.innerText = `${damping_Y}`;
+    slider_step.valueElement.innerHTML = `${round(TWO_PI / speed_step, 0)}`;
 }
 
 
@@ -289,44 +171,43 @@ function update_params() {
 function draw() {
     background(9, 5, 28);
     noFill();
-
-
-    speed_step = slider_step.value / 50;
-    speed_info.innerText = `${round(TWO_PI / (speed_step), 0)}`;
-
     update_params();
 
     if (cb_rotate.checked) {
-        curve = new LissajousCurve();
+        liss_curve = new LissajousCurve();
         damping_x = 0;
         damping_y = 0;
         delta = 0;
 
-        slider_damp_X.value = 6;
-        slider_damp_Y.value = 6;
-        slider_delta.value = 0;
+        slider_damp_X.rangeElement.value = 0;
+        slider_damp_Y.rangeElement.value = 0;
+        slider_delta.rangeElement.value = 0;
 
-        slider_damp_X.disabled = true;
-        slider_damp_Y.disabled = true;
-        slider_delta.disabled = true;
+        slider_damp_X.updateSlider();
+        slider_damp_Y.updateSlider();
+        slider_delta.updateSlider();
+
+        slider_damp_X.rangeElement.disabled = true;
+        slider_damp_Y.rangeElement.disabled = true;
+        slider_delta.rangeElement.disabled = true;
 
         for (let angle = 0; angle <= TWO_PI; angle += speed_step) {
             let x = board_width / 2 + (amp_X * pixels_per_amp) * exp(-damping_X * frame_idx) * sin(sqrt(freq_X * freq_X - damping_X * damping_X) * angle + (-delta + phase));
             let y = board_height / 2 + (amp_Y * pixels_per_amp) * exp(-damping_Y * frame_idx) * sin(sqrt(freq_Y * freq_Y - damping_Y * damping_Y) * angle);
-            curve.set_current_x(x);
-            curve.set_current_y(y);
-            curve.add_current_to_path();
+            liss_curve.set_current_x(x);
+            liss_curve.set_current_y(y);
+            liss_curve.add_current_to_path();
         }
-        curve.show_single(false);
+        liss_curve.show_single(false);
         phase += phase_step;
     }
     else {
         let x = board_width / 2 + (amp_X * pixels_per_amp) * exp(-damping_X * frame_idx) * sin(sqrt(freq_X * freq_X - damping_X * damping_X) * angle + delta);
         let y = board_height / 2 + (amp_Y * pixels_per_amp) * exp(-damping_Y * frame_idx) * sin(sqrt(freq_Y * freq_Y - damping_Y * damping_Y) * angle);
 
-        slider_damp_X.disabled = false;
-        slider_damp_Y.disabled = false;
-        slider_delta.disabled = false;
+        slider_damp_X.rangeElement.disabled = false;
+        slider_damp_Y.rangeElement.disabled = false;
+        slider_delta.rangeElement.disabled = false;
 
         stroke(218, 165, 32, 150);
         strokeWeight(5);
@@ -337,14 +218,14 @@ function draw() {
         point(x, board_height * 5 / 100);
         point(board_width * 5 / 100, y);
 
-        curve.set_current_x(x);
-        curve.set_current_y(y);
+        liss_curve.set_current_x(x);
+        liss_curve.set_current_y(y);
 
         if (period_occured) {
-            curve.shift_curve();
+            liss_curve.shift_curve();
         }
-        curve.add_current_to_path();
-        curve.show_single(true);
+        liss_curve.add_current_to_path();
+        liss_curve.show_single(true);
 
         if (angle >= TWO_PI) {
             angle = 0;
